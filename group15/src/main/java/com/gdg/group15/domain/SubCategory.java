@@ -26,6 +26,6 @@ public class SubCategory {
     private MainCategory category;
 
     @OneToMany(cascade = {PERSIST, MERGE})
-    @JoinColumn(name = "roadmap_id", nullable = false)
+    @JoinColumn(name = "sub_category_id", nullable = false)
     private List<Book> books  = new ArrayList<>();
 }
