@@ -13,11 +13,13 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class CategoryResponse {
     private final Long categoryId;
+    private final String categoryName;
     private final List<RoadmapResponse> roadmapResponses;
 
     public static CategoryResponse of(Category category) {
         return CategoryResponse.builder()
                 .categoryId(category.getId())
+                .categoryName(category.getName())
                 .roadmapResponses(category.getRoadmaps().stream().map(RoadmapResponse::of).collect(Collectors.toList()))
                 .build();
     }

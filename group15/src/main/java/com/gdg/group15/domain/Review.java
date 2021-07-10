@@ -13,24 +13,19 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@MappedSuperclass
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@EntityListeners(AuditingEntityListener.class)
-public class Review  {
+public class Review extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String author;
-
-    @CreatedDate
-    private LocalDateTime createdDateTime;
-
-    @LastModifiedDate
-    private LocalDateTime modifiedDateTime;
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn
+    private User author;
     private double averageRating;
-
     private String content;
+
+    @ManyToOne
+    private Book book;
 }

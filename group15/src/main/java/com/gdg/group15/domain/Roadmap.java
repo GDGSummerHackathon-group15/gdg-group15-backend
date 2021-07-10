@@ -24,6 +24,9 @@ public class Roadmap {
     private String description;
     private String imageUrl;
 
+    @ManyToOne
+    private Category category;
+
     @OneToMany(cascade = {PERSIST, MERGE})
     @JoinColumn(name = "roadmap_id", nullable = false)
     private List<Book> books  = new ArrayList<>();
