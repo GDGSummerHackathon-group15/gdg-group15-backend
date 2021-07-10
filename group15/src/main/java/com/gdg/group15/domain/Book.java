@@ -1,10 +1,8 @@
 package com.gdg.group15.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gdg.group15.web.dto.response.ReviewResponse;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -12,6 +10,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Book {
 
@@ -24,6 +23,7 @@ public class Book {
     private String imageUrl;
 
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Wish> wishes;
 
     @OneToMany
@@ -38,5 +38,15 @@ public class Book {
 
     public long getReviewerCount() {
         return reviews.size();
+    }
+
+    public Book addWish(Wish wish) {
+        wishes.add(wish);
+        return this;
+    }
+
+    public Book addReview(Review review) {
+        reviews.add(review);
+        return this;
     }
 }

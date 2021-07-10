@@ -1,5 +1,7 @@
 package com.gdg.group15.web;
 
+import com.gdg.group15.auth.annotation.LoginRequired;
+import com.gdg.group15.auth.annotation.UserId;
 import com.gdg.group15.service.BookService;
 import com.gdg.group15.web.dto.request.ReviewRequest;
 import com.gdg.group15.web.dto.response.BookResponse;
@@ -39,16 +41,17 @@ public class BookController {
         return ResponseEntity.ok(bookService.getBook(bookId));
     }
 
+    @LoginRequired
     @PostMapping("/books/{bookId}/reviews")
     public ResponseEntity<ReviewResponse> createReview(@PathVariable Long bookId,
-                                                       @RequestBody ReviewRequest reviewRequest) {
-        Long userId = 1L;
+                                                       @RequestBody ReviewRequest reviewRequest,
+                                                       @UserId Long userId) {
         return ResponseEntity.ok(bookService.createReview(userId, bookId, reviewRequest));
     }
 
+    @LoginRequired
     @PutMapping("/reviews/{reviewId}")
     public ResponseEntity<ReviewResponse> updateReview(@PathVariable Long reviewId, @RequestBody ReviewRequest reviewRequest) {
         return ResponseEntity.ok(bookService.updateReview(reviewId, reviewRequest));
     }
-
 }

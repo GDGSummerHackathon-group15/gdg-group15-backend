@@ -23,4 +23,9 @@ public class Wish {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn
     Book book;
+
+    public Wish(User user, Book book) {
+        this.user = user;
+        this.book = book;
+    }
 }

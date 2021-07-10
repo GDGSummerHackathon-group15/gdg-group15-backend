@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class BookService {
+public class    BookService {
 
     private final PartRepository partRepository;
     private final BookRepository bookRepository;
@@ -53,7 +53,9 @@ public class BookService {
         User author = userService.findUserById(userId);
         Book book = findBookById(bookId);
         Review review = new Review(author, reviewRequest.getAverageRating(), reviewRequest.getContent(), book);
-        return ReviewResponse.of(reviewRepository.save(review));
+        Review savedReview = reviewRepository.save(review);
+        bookRepository.save(book.addReview(savedReview));
+        return ReviewResponse.of(savedReview);
     }
 
     @Transactional
@@ -75,7 +77,7 @@ public class BookService {
         return subCategoryRepository.findById(id).orElseThrow(()-> new RuntimeException("SubCategory를 찾을 수 없습니다."));
     }
 
-    private Book findBookById(Long bookId) {
+    public Book findBookById(Long bookId) {
         return bookRepository.findById(bookId).orElseThrow(BookNotFoundException::new);
     }
 
