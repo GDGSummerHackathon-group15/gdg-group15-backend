@@ -12,7 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Category {
+public class Part {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,6 +20,6 @@ public class Category {
 
     private String name;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
-    private List<Roadmap> roadmaps = new ArrayList<>();
+    @OneToMany(mappedBy = "part", cascade = CascadeType.ALL)
+    private List<MainCategory> mainCategories = new ArrayList<>();
 }

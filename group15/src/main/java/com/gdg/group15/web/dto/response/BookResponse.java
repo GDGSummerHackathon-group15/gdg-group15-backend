@@ -16,6 +16,9 @@ public class BookResponse {
     private Long bookId;
     private String title;
     private String description;
+    private String imageUrl;
+    private double averageRating;
+    private long reviewerCount;
     private List<ReviewResponse> reviews;
 
     public static BookResponse of(Book book) {
@@ -23,6 +26,9 @@ public class BookResponse {
                 .bookId(book.getId())
                 .title(book.getTitle())
                 .description(book.getDescription())
+                .imageUrl(book.getImageUrl())
+                .averageRating(book.calculateAverage())
+                .reviewerCount(book.getReviewerCount())
                 .reviews(book.getReviews().stream().map(ReviewResponse::of).collect(Collectors.toList()))
                 .build();
     }

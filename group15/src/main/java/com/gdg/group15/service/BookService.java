@@ -4,10 +4,7 @@ import com.gdg.group15.domain.*;
 import com.gdg.group15.exception.BookNotFoundException;
 import com.gdg.group15.exception.CategoryNotFoundException;
 import com.gdg.group15.exception.RoadmapNotFoundException;
-import com.gdg.group15.repository.BookRepository;
-import com.gdg.group15.repository.CategoryRepository;
-import com.gdg.group15.repository.ReviewRepository;
-import com.gdg.group15.repository.RoadmapRepository;
+import com.gdg.group15.repository.*;
 import com.gdg.group15.web.dto.request.ReviewRequest;
 import com.gdg.group15.web.dto.response.*;
 import lombok.RequiredArgsConstructor;
@@ -22,41 +19,37 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class BookService {
 
-    private final CategoryRepository categoryRepository;
+    private final PartRepository partRepository;
     private final BookRepository bookRepository;
-    private final RoadmapRepository roadmapRepository;
+    private final MainCategoryRepository mainCategoryRepository;
+    private final SubCategoryRepository subCategoryRepository;
     private final ReviewRepository reviewRepository;
     private final UserService userService;
 
-    public List<CategoryResponse> getCategories() {
-        return categoryRepository.findAll().stream().map(CategoryResponse::of).collect(Collectors.toList());
-    }
-
-    public CategoryResponse getCategory(Long categoryId) {
-        return CategoryResponse.of(findCategoryById(categoryId));
+    public List<PartResponse> getParts() {
+        return partRepository.findAll().stream().map(PartResponse::of).collect(Collectors.toList());
     }
 
     public BookResponse getBook(Long bookId) {
         return BookResponse.of(findBookById(bookId));
     }
 
-    public List<RoadmapResponse> getFilteredRoadmaps(Long categoryId, String roadmap) {
-        String[] roadmaps = roadmap.split(",");
-        List<RoadmapResponse> roadmap_list = new ArrayList<>();
-
-        for (int i = 0; i < roadmaps.length; i++) {
-            roadmap_list.add(getRoadmap(roadmaps[i]));
-        }
-
-        return roadmap_list;
+    public List<MainCategoryResponse> getMainCategories(Long partId) {
+        Part part = findPartById(partId);
+        return part.getMainCategories().stream().map(MainCategoryResponse::of).collect(Collectors.toList());
     }
 
-    public RoadmapResponse getRoadmap(String title) {
-        return RoadmapResponse.of(findRoadmapByTitle(title));
+    public List<BookResponse> getAllBooksBySubCategory(Long subCategoryId) {
+        SubCategory subCategory = findSubCategoryById(subCategoryId);
+        return subCategory.getBooks().stream().map(BookResponse::of).collect(Collectors.toList());
+    }
+
+    public MainCategoryResponse getMainCategory(String title) {
+        return MainCategoryResponse.of(findMainCategoryByTitle(title));
     }
 
     @Transactional
-    public ReviewResponse saveReview(Long userId, Long bookId, ReviewRequest reviewRequest) {
+    public ReviewResponse createReview(Long userId, Long bookId, ReviewRequest reviewRequest) {
         User author = userService.findUserById(userId);
         Book book = findBookById(bookId);
         Review review = new Review(author, reviewRequest.getAverageRating(), reviewRequest.getContent(), book);
@@ -74,16 +67,20 @@ public class BookService {
         return reviewRepository.findById(reviewId).orElseThrow(()-> new RuntimeException("리뷰를 찾을 수 없습니다."));
     }
 
-    private Roadmap findRoadmapByTitle(String title) {
-        return roadmapRepository.findByTitle(title).orElseThrow(RoadmapNotFoundException::new);
+    private MainCategory findMainCategoryByTitle(String title) {
+        return mainCategoryRepository.findByTitle(title).orElseThrow(RoadmapNotFoundException::new);
+    }
+
+    private SubCategory findSubCategoryById(Long id) {
+        return subCategoryRepository.findById(id).orElseThrow(()-> new RuntimeException("SubCategory를 찾을 수 없습니다."));
     }
 
     private Book findBookById(Long bookId) {
         return bookRepository.findById(bookId).orElseThrow(BookNotFoundException::new);
     }
 
-    private Category findCategoryById(Long categoryId) {
-        return categoryRepository.findById(categoryId).orElseThrow(CategoryNotFoundException::new);
+    private Part findPartById(Long partId) {
+        return partRepository.findById(partId).orElseThrow(CategoryNotFoundException::new);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.gdg.group15.domain;
 
+import com.gdg.group15.web.dto.response.ReviewResponse;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,10 +21,22 @@ public class Book {
 
     private String title;
     private String description;
+    private String imageUrl;
 
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
     private List<Wish> wishes;
 
     @OneToMany
     private List<Review> reviews;
+
+    public double calculateAverage() {
+        return reviews.stream()
+                .mapToDouble(Review::getAverageRating)
+                .average()
+                .orElse(0.0);
+    }
+
+    public long getReviewerCount() {
+        return reviews.size();
+    }
 }

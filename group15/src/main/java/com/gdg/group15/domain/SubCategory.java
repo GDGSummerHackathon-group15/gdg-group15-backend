@@ -14,18 +14,16 @@ import static javax.persistence.CascadeType.PERSIST;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Roadmap {
+public class SubCategory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String title;
-    private String description;
-    private String imageUrl;
 
     @ManyToOne
-    private Category category;
+    private MainCategory category;
 
     @OneToMany(cascade = {PERSIST, MERGE})
     @JoinColumn(name = "roadmap_id", nullable = false)
