@@ -20,6 +20,8 @@ public class User {
 
     private String name;
 
+    private String avatarUrl;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Wish> wishes = new ArrayList<>();
 }
