@@ -1,8 +1,10 @@
 package com.gdg.group15.web;
 
 import com.gdg.group15.service.BookService;
+import com.gdg.group15.web.dto.request.ReviewRequest;
 import com.gdg.group15.web.dto.response.BookResponse;
 import com.gdg.group15.web.dto.response.CategoryResponse;
+import com.gdg.group15.web.dto.response.ReviewResponse;
 import com.gdg.group15.web.dto.response.RoadmapResponse;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.Response;
@@ -38,4 +40,18 @@ public class BookController {
     public ResponseEntity<BookResponse> viewBookDetailPage(@PathVariable Long bookId) {
         return ResponseEntity.ok(bookService.getBook(bookId));
     }
+
+    @PostMapping("/books/{bookId}/reviews")
+    public ResponseEntity<ReviewResponse> viewReview(@PathVariable Long bookId,
+                                                     @RequestBody ReviewRequest reviewRequest) {
+        Long userId = 1L;
+        return ResponseEntity.ok(bookService.saveReview(userId, bookId, reviewRequest));
+    }
+
+
+    @PutMapping("/reviews/{reviewId}")
+    public ResponseEntity<ReviewResponse> updateReview(@PathVariable Long reviewId, @RequestBody ReviewRequest reviewRequest) {
+        return ResponseEntity.ok(bookService.updateReview(reviewId, reviewRequest));
+    }
+
 }

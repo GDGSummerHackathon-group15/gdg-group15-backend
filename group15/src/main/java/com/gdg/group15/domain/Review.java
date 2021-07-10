@@ -1,15 +1,8 @@
 package com.gdg.group15.domain;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
+import com.gdg.group15.web.dto.request.ReviewRequest;
+import lombok.*;
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -28,4 +21,19 @@ public class Review extends BaseTimeEntity {
 
     @ManyToOne
     private Book book;
+
+    public Review(User author, double averageRating, String content, Book book) {
+        this.author = author;
+        this.averageRating = averageRating;
+        this.content = content;
+        this.book = book;
+    }
+
+    public Review update(ReviewRequest reviewRequest) {
+        this.averageRating = reviewRequest.getAverageRating();
+        this.content = reviewRequest.getContent();
+        return this;
+    }
+
+
 }
