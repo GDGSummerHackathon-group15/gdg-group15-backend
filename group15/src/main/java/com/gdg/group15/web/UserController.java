@@ -4,7 +4,6 @@ import com.gdg.group15.auth.annotation.LoginRequired;
 import com.gdg.group15.auth.annotation.UserId;
 import com.gdg.group15.service.UserService;
 import com.gdg.group15.web.dto.response.AuthUserResponse;
-import com.gdg.group15.web.dto.response.UserResponse;
 import com.gdg.group15.web.dto.response.UserWishResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

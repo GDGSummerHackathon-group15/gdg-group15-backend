@@ -23,7 +23,6 @@ public class JwtService {
     }
 
     public String createToken(User user) {
-        System.out.println("토큰 생성 메서드 안 유저: "+ user.toString());
         return JWT.create()
                 .withClaim(USER_ID, user.getId())
                 .withIssuer(ISSUER)

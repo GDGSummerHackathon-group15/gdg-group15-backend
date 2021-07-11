@@ -10,14 +10,12 @@ import com.gdg.group15.web.dto.response.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class    BookService {
+public class BookService {
 
     private final PartRepository partRepository;
     private final BookRepository bookRepository;
@@ -42,10 +40,6 @@ public class    BookService {
     public List<BookResponse> getAllBooksBySubCategory(Long subCategoryId) {
         SubCategory subCategory = findSubCategoryById(subCategoryId);
         return subCategory.getBooks().stream().map(BookResponse::of).collect(Collectors.toList());
-    }
-
-    public MainCategoryResponse getMainCategory(String title) {
-        return MainCategoryResponse.of(findMainCategoryByTitle(title));
     }
 
     @Transactional

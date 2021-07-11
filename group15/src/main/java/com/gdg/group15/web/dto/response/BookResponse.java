@@ -22,7 +22,6 @@ public class BookResponse {
     private List<ReviewResponse> reviews;
 
     public static BookResponse of(Book book) {
-        System.out.println("책: "+ book.toString());
         return BookResponse.builder()
                 .bookId(book.getId())
                 .title(book.getTitle())

@@ -5,6 +5,7 @@ import com.gdg.group15.auth.dto.AccessTokenResponseDTO;
 import com.gdg.group15.auth.dto.OAuthUserResponseDTO;
 import com.gdg.group15.auth.exception.AccessTokenNotFoundException;
 import com.gdg.group15.auth.exception.GitHubUserNotFoundException;
+import com.gdg.group15.auth.exception.InvalidGitHubRequestException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -47,7 +48,7 @@ public class GitHubOAuth implements OAuth {
                 .accept(MediaType.APPLICATION_JSON)
                 .bodyValue(accessTokenRequest)
                 .retrieve()
-//                .onStatus(HttpStatus::is4xxClientError, error -> Mono.error(InvalidGitHubRequestException::new))
+                .onStatus(HttpStatus::is4xxClientError, error -> Mono.error(InvalidGitHubRequestException::new))
                 .bodyToMono(AccessTokenResponseDTO.class)
                 .blockOptional()
                 .orElseThrow(AccessTokenNotFoundException::new);
@@ -61,7 +62,7 @@ public class GitHubOAuth implements OAuth {
                 .accept(MediaType.APPLICATION_JSON)
                 .header(HttpHeaders.AUTHORIZATION, TOKEN + " " + accessToken)
                 .retrieve()
-//                .onStatus(HttpStatus::is4xxClientError, error -> Mono.error(InvalidGitHubRequestException::new))
+                .onStatus(HttpStatus::is4xxClientError, error -> Mono.error(InvalidGitHubRequestException::new))
                 .bodyToMono(OAuthUserResponseDTO.class)
                 .blockOptional()
                 .orElseThrow(GitHubUserNotFoundException::new);
