@@ -14,6 +14,7 @@ import com.gdg.group15.web.dto.response.AuthUserResponse;
 import com.gdg.group15.web.dto.response.UserWishResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -34,8 +35,9 @@ public class UserService {
         return userRepository.findById(userId).orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다."));
     }
 
-    public void deleteWish(Long wishId) {
-        wishRepository.deleteById(wishId);
+    @Transactional
+    public void deleteWish(Long bookId) {
+        wishRepository.deleteWishByBookId(bookId);
     }
 
     public UserWishResponse addWish(Long userId, Long bookId) {

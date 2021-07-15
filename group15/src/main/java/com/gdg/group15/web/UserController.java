@@ -33,9 +33,9 @@ public class UserController {
     }
 
     @LoginRequired
-    @DeleteMapping("/wishes/{wishId}")
-    public void deleteWish(@PathVariable Long wishId) {
-        userService.deleteWish(wishId);
+    @DeleteMapping("/books/{bookId}/wishes")
+    public void deleteWish(@PathVariable Long bookId) {
+        userService.deleteWish(bookId);
     }
 
 }
