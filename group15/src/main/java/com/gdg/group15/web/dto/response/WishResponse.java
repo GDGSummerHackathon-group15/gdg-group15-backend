@@ -13,6 +13,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class WishResponse {
     private Long bookId;
+    private Long wishId;
     private String title;
     private String description;
     private String imageUrl;
@@ -21,6 +22,7 @@ public class WishResponse {
         Book book = wish.getBook();
         return WishResponse.builder()
                 .bookId(book.getId())
+                .wishId(wish.getId())
                 .title(book.getTitle())
                 .description(book.getDescription())
                 .imageUrl(book.getImageUrl())
