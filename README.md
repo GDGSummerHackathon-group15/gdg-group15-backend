@@ -64,6 +64,7 @@
 
 ## 데모 영상
 ![녹화_2021_07_12_13_01_30_717](https://user-images.githubusercontent.com/68000537/125229424-c096f580-e311-11eb-9da4-e031f5117821.gif)
+![녹화_2021_07_19_11_36_22_436](https://user-images.githubusercontent.com/68000537/126095110-7d5f8e81-90ae-49e2-92ba-36a681d61ee8.gif)
 
 ## 기술 상세
 ### Design
