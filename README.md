@@ -21,6 +21,9 @@
 - 인터넷에 개발 관련 책을 추천하는 블로그 포스팅은 많지만, 각 분야별 추천 도서와 해당 도서에 대한 **찐개발자들의 후기**가  한 곳에 모여있는 서비스는 찾기가 힘들어 기획하게 되었습니다. 
 - ***HelloWings***는 "Hello, World!"와 Wings의 합성어로 개발 생태계를 처음 접하는 뉴비들이 저희 서비스를 통해 날개를 달았으면 좋겠다는 바람에서 지어진 이름입니다.
 
+## 발표 영상
+- [[GDG 썸머 해커톤 w/디프만] (15조) HelloWings](https://www.youtube.com/watch?v=enIsDhz_JHY)
+
 ## 전체 소스 코드
 - [Frontend](https://github.com/GDGSummerHackathon-group15/gdg-group15-frontend)
 - [Backend](https://github.com/GDGSummerHackathon-group15/gdg-group15-backend)
